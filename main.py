@@ -3,9 +3,9 @@ import cv2
 import time
 import torch
 
-model = YOLO("yolo26n.pt").to("cuda")
+model = YOLO("models/yolo26n.pt").to("cuda")
 
-cap = cv2.VideoCapture("video2.mp4")
+cap = cv2.VideoCapture("videos/video2.mp4")
 
 print(torch.cuda.is_available())
 
@@ -19,12 +19,11 @@ positions = {}
 
 last_seen = {}
 frame_id = 0
-TTL = 15   # 30 frame görünmezse sil (~1 sn)
+TTL = 15   # x frame görünmezse sil
 
 
 fps_list = []
 
-# 🎥 VideoWriter oluştur
 fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # mp4 codec
 video_fps = cap.get(cv2.CAP_PROP_FPS)
 
@@ -92,17 +91,16 @@ while cap.isOpened():
 
     # Çizgiler
     cv2.line(frame, (0, LINE_Y), (frame.shape[1], LINE_Y), (255,0,255), 3)
-    #
+
     cv2.putText(frame, f"Car Count: {entered}", (20,40),
                  cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,255), 2)
-    #
-    # cv2.putText(frame, f"FPS: {fps}", (20,80),
-    #             cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,0), 2)
-    #
-    # cv2.putText(frame, f"Running on CPU", (20,120),
-    #             cv2.FONT_HERSHEY_SIMPLEX, 1, (0,255,0), 2)
 
-    # 🎥 Frame'i videoya yaz
+    cv2.putText(frame, f"FPS: {fps}", (20,80),
+                cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,0), 2)
+
+    cv2.putText(frame, f"Running on CPU", (20,120),
+                cv2.FONT_HERSHEY_SIMPLEX, 1, (0,255,0), 2)
+
     out.write(frame)
 
     cv2.imshow("Vehicle Counter", frame)
@@ -120,5 +118,5 @@ while cap.isOpened():
         break
 
 cap.release()
-out.release()  # BUNU UNUTMA!
+out.release()
 cv2.destroyAllWindows()
