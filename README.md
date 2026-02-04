@@ -23,7 +23,6 @@ Suitable for:
 
 - **Python**
 - **YOLO (Object Detection)**
-- **TensorRT** → Maximum GPU performance
 - **OpenCV** → Video processing
 - **NumPy**
 - **Object Tracking** → Unique vehicle IDs
@@ -36,4 +35,12 @@ Suitable for:
 2️⃣ TensorRT-optimized YOLO model detects vehicles in each frame.  
 3️⃣ A tracking algorithm assigns a unique ID to every vehicle.  
 4️⃣ When a vehicle crosses the reference line, its direction is analyzed:
+## 🔧 Installation
+
+### Requirements
+
+- NVIDIA GPU  
+- CUDA >12.4 
+- Python >3.10
+- Ultralytics
 
